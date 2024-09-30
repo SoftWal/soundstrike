@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/xml_com_android_vending_archive_opt_out.xml.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/xml/com_android_vending_archive_opt_out.xml"
+    },
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/drawable_btn_gray.xml.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/drawable/btn_gray.xml"
+    },
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/drawable_new_dark_button_disabled.xml.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/drawable/new_dark_button_disabled.xml"
+    },
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/layout_main_layout.xml.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/layout/main_layout.xml"
+    },
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/drawable_ic_launcher.png.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/drawable/ic_launcher.png"
+    },
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/drawable_new_dark_button_bg.xml.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/drawable/new_dark_button_bg.xml"
+    },
+    {
+        "merged": "com.atakmap.android.plugintemplate.plugin.app-merged_res-6:/drawable_new_dark_button_selected.xml.flat",
+        "source": "com.atakmap.android.plugintemplate.plugin.app-main-9:/drawable/new_dark_button_selected.xml"
+    }
+]
