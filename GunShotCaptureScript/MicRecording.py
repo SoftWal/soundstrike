@@ -9,8 +9,13 @@ CHUNK = 1024  # Size of each audio chunk for buffering
 FORMAT = pyaudio.paInt16  # Audio format
 CHANNELS = 1  # Number of audio channels (mono)
 
-OUTPUT_DIR_USB = "GunShotData/Bad-Mic-USB/Handguns"  # Directory for USB mic recordings
-OUTPUT_DIR_AUX = "GunShotData/Good-Mic-AUX/Handguns"  # Directory for AUX mic recordings
+gun = "Handguns"
+bullet = "357"
+distance = "5yrds"
+bullet_range = bullet+distance
+
+OUTPUT_DIR_USB = f"GunShotData/Bad-Mic-USB/{gun}/Clean/{distance}/{bullet}"  # Directory for USB mic recordings
+OUTPUT_DIR_AUX = f"GunShotData/Good-Mic-AUX/{gun}/Clean/{distance}/{bullet}"  # Directory for AUX mic recordings
 
 # Initialize shot count
 shot_count = 0
@@ -78,8 +83,8 @@ def dual_recording_loop(usb_device_id, aux_device_id):
         shot_count += 1
 
         # File paths for this shot
-        usb_file = f"{OUTPUT_DIR_USB}/caliber_usb_shot{shot_count}.wav"
-        aux_file = f"{OUTPUT_DIR_AUX}/caliber_aux_shot{shot_count}.wav"
+        usb_file = f"{OUTPUT_DIR_USB}/{bullet_range}_usb_shot{shot_count}.wav"
+        aux_file = f"{OUTPUT_DIR_AUX}/{bullet_range}_aux_shot{shot_count}.wav"
 
         # Create threads for simultaneous recording
         usb_thread = threading.Thread(target=record_audio, args=(usb_device_id, DURATION, usb_file))
