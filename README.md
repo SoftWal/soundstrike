@@ -66,7 +66,7 @@ A system designed to detect high-decibel sound events (e.g., gunshots) and visua
    ```bash
    pip install -r requirements.txt
    ```
-3. Set up the TAK server following the instructions [here](#system-architecture).  
+3. Set up the TAK server following the instructions [here](https://mytecknet.com/lets-build-a-tak-server/).  
 4. Configure Raspberry Pi using the provided scripts in the `/raspberry-pi` folder.
 
 ---
