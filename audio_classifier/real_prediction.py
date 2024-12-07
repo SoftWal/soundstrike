@@ -14,6 +14,8 @@ import sys
 import asyncio
 import ssl
 import logging
+import sqlite3
+from queue import Queue
 
 # For GPS data
 try:
@@ -23,6 +25,9 @@ except ImportError:
 
 # Buffer for audio data
 audio_buffer = queue.Queue()
+
+# Database queue for inserts (event_time, latitude, longitude, caliber, confidence)
+db_queue = Queue()
 
 # Asynchronous function to send message to TAK Server
 async def send_message(latitude, longitude, caliber, confidence):
@@ -131,10 +136,47 @@ def get_gps_coordinates():
         print(f"Error obtaining GPS data: {e}")
         return None, None
 
+def db_writer(db_queue):
+    """
+    Dedicated thread function for writing to the database.
+    Opens its own database connection and handles inserts.
+    """
+    # Open the database connection in this thread
+    db_connection = sqlite3.connect("gunshot_events.db", check_same_thread=False)
+    db_cursor = db_connection.cursor()
+
+    # Ensure the table exists
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS gunshot_events (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        event_time TEXT,
+        latitude REAL,
+        longitude REAL,
+        caliber TEXT,
+        confidence REAL
+    );
+    """
+    db_cursor.execute(create_table_query)
+    db_connection.commit()
+
+    while True:
+        event = db_queue.get()
+        if event is None:
+            # Signal to stop
+            break
+        event_time, latitude, longitude, predicted_caliber, confidence = event
+        insert_query = """
+        INSERT INTO gunshot_events (event_time, latitude, longitude, caliber, confidence)
+        VALUES (?, ?, ?, ?, ?);
+        """
+        db_cursor.execute(insert_query, (event_time, latitude, longitude, predicted_caliber, confidence))
+        db_connection.commit()
+
+    # Clean up
+    db_cursor.close()
+    db_connection.close()
+
 def live_prediction(args):
-    """
-    Perform live audio prediction.
-    """
     # Load model and set up LabelEncoder
     model = load_model(args.model_fn, custom_objects={
         'STFT': STFT,
@@ -149,9 +191,12 @@ def live_prediction(args):
     # Open CSV file for logging
     csv_file = open(args.csv_filename, mode='a', newline='')
     csv_writer = csv.writer(csv_file)
-    # Write header only if the file is empty
     if csv_file.tell() == 0:
         csv_writer.writerow(['Time', 'Latitude', 'Longitude', 'Caliber', 'Confidence'])
+
+    # Start the database writer thread
+    db_thread = threading.Thread(target=db_writer, args=(db_queue,), daemon=True)
+    db_thread.start()
 
     def process_audio():
         while True:
@@ -186,10 +231,13 @@ def live_prediction(args):
                                 [event_time, latitude, longitude, predicted_caliber, f"{confidence:.2f}%"])
                             csv_file.flush()  # Ensure data is written to file
 
+                            # Put the event into the db_queue for the db_writer thread to insert
+                            db_queue.put((event_time, latitude, longitude, predicted_caliber, confidence))
+
                             # Sending message to TAK Server with caliber
                             loop = asyncio.new_event_loop()
                             asyncio.set_event_loop(loop)
-                            loop.run_until_complete(send_message(latitude, longitude, predicted_caliber,confidence))
+                            loop.run_until_complete(send_message(latitude, longitude, predicted_caliber, confidence))
                             loop.close()
 
                             # Print message
@@ -242,7 +290,11 @@ def live_prediction(args):
             except KeyboardInterrupt:
                 print("Stopped.")
             finally:
+                # Close CSV file
                 csv_file.close()
+                # Stop the db_writer thread
+                db_queue.put(None)
+                db_thread.join()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Live Audio Classification with Gunshot Detection')
@@ -266,7 +318,7 @@ if __name__ == '__main__':
                         help='Path to an audio file for testing instead of live microphone input.')
     args = parser.parse_args()
 
-    # Microphone selection
+    # Microphone selection if not using a test file
     if args.test_file is None and args.device is None:
         print("Available audio input devices:")
         devices = sd.query_devices()
