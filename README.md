@@ -75,7 +75,7 @@ A system designed to detect high-decibel sound events (e.g., gunshots) and visua
 1. Start the TAK server.  
 2. Run the AI detection system on Raspberry Pi:
    ```bash
-   python run_detection.py
+   python real_prediction.py
    ```
 3. Monitor sound events in real time on the TAK interface.
 
