@@ -1,0 +1,91 @@
+-- Merging decision tree log ---
+meta-data#plugin-api
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:15:9-81
+	android:value
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:15:46-79
+	android:name
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:15:20-45
+manifest
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+MERGED from [:takdevlint:] /home/wgcengineering/.gradle/caches/transforms-3/aa788b1e731a4f2074bb394b1203a35e/transformed/takdevlint/AndroidManifest.xml:2:1-7:12
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+	package
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:3:5-53
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:2:5-51
+	android:versionCode
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:1-33:12
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:1:11-69
+	tools:ignore
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:4:5-44
+uses-permission#android.permission.INTERNET
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:5:5-66
+	android:name
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:5:22-64
+application
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:7:5-31:19
+	android:extractNativeLibs
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:13:9-41
+	android:label
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:11:9-41
+	android:icon
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:10:9-37
+	android:allowBackup
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:9:9-36
+	android:description
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:12:9-47
+	android:theme
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:14:9-40
+meta-data#app_desc
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:16:9-78
+	android:value
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:16:44-76
+	android:name
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:16:20-43
+activity#com.atakmap.app.component
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:22:8-28:19
+	android:exported
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:23:12-35
+	tools:ignore
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:24:12-39
+	android:name
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:22:18-58
+intent-filter#action:name:com.atakmap.app.component
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:25:12-27:28
+	android:label
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:25:27-59
+action#com.atakmap.app.component
+ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:26:15-66
+	android:name
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:26:23-63
+uses-sdk
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+MERGED from [:takdevlint:] /home/wgcengineering/.gradle/caches/transforms-3/aa788b1e731a4f2074bb394b1203a35e/transformed/takdevlint/AndroidManifest.xml:5:5-44
+MERGED from [:takdevlint:] /home/wgcengineering/.gradle/caches/transforms-3/aa788b1e731a4f2074bb394b1203a35e/transformed/takdevlint/AndroidManifest.xml:5:5-44
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		ADDED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+		INJECTED from /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml

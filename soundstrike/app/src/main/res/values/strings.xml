@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">SoundStrike</string>
+    <!-- description -->
+    <string name="app_desc">
+    SoundStrike is an ATAK plugin that retrieves gunshot event data from a remote server, displays them in a user-friendly list, and allows users to place visual markers on the map for enhanced situational awareness.
+</string>
+
+
+
+
+
+</resources>
