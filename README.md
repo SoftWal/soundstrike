@@ -41,7 +41,7 @@ A system designed to detect high-decibel sound events (e.g., gunshots) and visua
 - **Calibers Included:**  
   - Handguns: 9mm, .22LR, .380ACP, 10mm  
   - Shotguns: 12 Gauge  
-  - Rifles: .300BLK, .300 WIN MAG, .308, 7.62x39, 5.56/.223  
+  - Rifles: .300BLK, .308, 7.62x39, 5.56/.223  
 - **Process:**  
   Sound samples were recorded, cleaned, and labeled to create a robust dataset for AI training.
 
