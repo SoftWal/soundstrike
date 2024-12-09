@@ -101,7 +101,7 @@ The **SoundStrike Plugin** is a custom add-on for the ATAK platform that enables
 1. **Clone the Repository**:
    - Clone the plugin repository using:
      ```bash
-     [https://github.com/YourUsernamesoundstrike.git]
+     https://github.com/YourUsernamesoundstrike.git
     
 
 2. **Build the Plugin**:
