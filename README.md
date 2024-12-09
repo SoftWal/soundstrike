@@ -80,7 +80,67 @@ A system designed to detect high-decibel sound events (e.g., gunshots) and visua
 3. Monitor sound events in real time on the TAK interface.
 
 ---
+Here's the updated documentation with the **SoundStrike Plugin for ATAK** section:
 
+---
+
+### SoundStrike Plugin for ATAK
+
+The **SoundStrike Plugin** is a custom add-on for the ATAK platform that enables real-time visualization of detected sound events directly on the ATAK map interface. This plugin integrates seamlessly with the TAK Server and the AI detection system.
+
+#### Prerequisites
+1. **Download the ATAK SDK**:
+   - Visit the official [TAK.gov](https://tak.gov) website.
+   - Create an account (if required) and download the ATAK SDK.
+
+2. **Environment Setup**:
+   - Ensure that the ATAK SDK is installed and configured correctly on your development machine.
+   - Install Java Development Kit (JDK) and Android Studio (if not already installed).
+
+#### Adding the Plugin
+1. **Clone the Repository**:
+   - Clone the plugin repository using:
+     ```bash
+     git clone https://github.com/YourUsername/SoundStrikePlugin.git
+     ```
+   - Navigate to the plugin directory:
+     ```bash
+     cd SoundStrikePlugin
+     ```
+
+2. **Build the Plugin**:
+   - Open the project in Android Studio.
+   - Sync the Gradle files to ensure all dependencies are downloaded.
+   - Build the project to generate the plugin `.apk` file.
+
+3. **Add Plugin to ATAK**:
+   - Transfer the `.apk` file to your Android device.
+   - Open ATAK on your device.
+   - Navigate to **Settings** > **Plugins** > **Install Plugin**.
+   - Select the **SoundStrike Plugin** `.apk` file and install it.
+
+#### Using the Plugin
+1. **Connect to the TAK Server**:
+   - Ensure your ATAK device is connected to the TAK Server configured in the **Sound Detection and Alert System**.
+
+2. **Activate the Plugin**:
+   - Go to **Plugins** in the ATAK interface.
+   - Enable the **SoundStrike Plugin**.
+
+3. **Visualize Events**:
+   - Detected sound events will appear as icons on the ATAK map, showing the location, type of sound (e.g., gunshot, explosion), and timestamp.
+
+4. **Event Details**:
+   - Tap on an event icon to view detailed information, including the sound classification and confidence level.
+
+#### Notes
+- The SoundStrike Plugin requires ATAK version 4.5 or later.
+- Ensure your TAK Server is properly configured with the necessary encryption and certificate settings.
+- For further assistance, refer to the documentation provided in the plugin repository.
+
+--- 
+
+This section provides a comprehensive guide for users to integrate and utilize the **SoundStrike Plugin** for ATAK. Let me know if you'd like to add more details or instructions!
 ### **Contributing**
 Contributions are welcome! Follow these steps to contribute:
 1. Fork the repository.  
