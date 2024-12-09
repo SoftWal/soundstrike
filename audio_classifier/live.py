@@ -4,7 +4,7 @@ import sounddevice as sd
 from tensorflow.keras.models import load_model
 from kapre.time_frequency import STFT, Magnitude, ApplyFilterbank, MagnitudeToDecibel
 from sklearn.preprocessing import LabelEncoder
-from clean import downsample_mono, envelope
+from clean import envelope
 import argparse
 import queue
 import csv
@@ -15,6 +15,7 @@ import asyncio
 import ssl
 import logging
 import requests
+from scipy.signal import butter, lfilter
 
 try:
     import geocoder
@@ -22,6 +23,13 @@ except ImportError:
     geocoder = None
 
 audio_buffer = queue.Queue()
+
+def bandpass_filter(data, lowcut, highcut, fs, order=5):
+    nyquist = 0.5 * fs
+    low = lowcut / nyquist
+    high = highcut / nyquist
+    b, a = butter(order, [low, high], btype='band')
+    return lfilter(b, a, data)
 
 async def send_message(latitude, longitude, caliber, confidence):
     tak_server = "172.20.10.6"
@@ -40,10 +48,6 @@ async def send_message(latitude, longitude, caliber, confidence):
     client_key = os.path.expanduser("Coms-Cert/wintak_key.pem")
     ca_cert = os.path.expanduser("Coms-Cert/TAK-Sound.pem")
 
-    assert os.path.exists(client_cert), f"Client cert not found: {client_cert}"
-    assert os.path.exists(client_key), f"Client key not found: {client_key}"
-    assert os.path.exists(ca_cert), f"CA cert not found: {ca_cert}"
-
     ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile=ca_cert)
     ssl_context.load_cert_chain(certfile=client_cert, keyfile=client_key)
     ssl_context.check_hostname = False
@@ -58,27 +62,34 @@ async def send_message(latitude, longitude, caliber, confidence):
         else:
             print("No response from the server.", flush=True)
         print("Message sent successfully.", flush=True)
-    except ssl.SSLError as ssl_err:
-        logging.exception("SSL error occurred while sending the message.")
-    except OSError as os_err:
-        logging.exception("OS error occurred, could be network-related.")
     except Exception as e:
-        logging.exception("An unexpected error occurred.")
+        logging.exception("Error while sending the message.")
     finally:
         writer.close()
         await writer.wait_closed()
 
-def audio_callback(indata, frames, time, status):
-    if status:
-        print(f"Status: {status}", file=sys.stderr, flush=True)
-    audio_buffer.put(indata.copy())
-
 def preprocess_audio(wav, sr, dt, threshold):
+    print(f"Preprocessing audio chunk of size: {wav.shape}")
+    print(f"Audio chunk min: {np.min(wav)}, max: {np.max(wav)}, mean: {np.mean(wav)}")
+
+    # Apply bandpass filter
+    wav = bandpass_filter(wav, lowcut=20, highcut=1000, fs=sr)
+    print(f"Bandpass-filtered audio: min={np.min(wav)}, max={np.max(wav)}")
+
+    # Filter out quiet audio segments
+    if np.max(wav) < 0.1:
+        print("Filtered out quiet audio segment.")
+        return np.array([])
+
+    # Envelope-based cleaning
     mask, env = envelope(wav, sr, threshold=threshold)
-    clean_wav = wav[mask]
+    print(f"Envelope mask sum: {np.sum(mask)}, Total samples: {len(mask)}")
+    clean_wav = wav[mask] if np.any(mask) else wav
+    print(f"Cleaned audio chunk size: {clean_wav.shape}")
+
+    # Create batches
     step = int(sr * dt)
     batch = []
-
     for i in range(0, clean_wav.shape[0], step):
         sample = clean_wav[i:i+step]
         sample = sample.reshape(-1, 1)
@@ -88,6 +99,7 @@ def preprocess_audio(wav, sr, dt, threshold):
             sample = tmp
         batch.append(sample)
 
+    print(f"Generated {len(batch)} batches for the model.")
     return np.array(batch, dtype=np.float32)
 
 def get_gps_coordinates():
@@ -123,17 +135,80 @@ def send_to_remote_database(event_time, latitude, longitude, caliber, confidence
         "confidence": confidence
     }
 
-    print("Debug: Sending request to remote API...", flush=True)
     try:
         response = requests.post(url, json=payload, timeout=20)
-        print(f"Debug: Response received. Status: {response.status_code}", flush=True)
         if response.status_code == 200:
             print("Successfully wrote to remote database via API.", flush=True)
         else:
             print(f"Failed to write to remote database. Status code: {response.status_code}", flush=True)
-            print("Response:", response.text, flush=True)
     except requests.RequestException as e:
         print(f"Error connecting to remote database API: {e}", flush=True)
+
+def process_audio_chunk(audio_chunk, model, classes, le, csv_writer, args):
+    try:
+        print(f"Processing audio chunk of size: {audio_chunk.shape}")
+        X_batch = preprocess_audio(audio_chunk, args.sr, args.dt, args.threshold)
+
+        if X_batch.size > 0:
+            print(f"Model input batch shape: {X_batch.shape}")
+            y_pred = model.predict(X_batch)
+            print(f"Model output: {y_pred}")
+            y_mean = np.mean(y_pred, axis=0)
+            y_pred_class_index = np.argmax(y_mean)
+            confidence = y_mean[y_pred_class_index] * 100
+            predicted_caliber = classes[y_pred_class_index]
+            print(f"Predicted caliber: {predicted_caliber}, Confidence: {confidence:.2f}%")
+
+            if confidence >= args.confidence_threshold:
+                event_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                #latitude, longitude = get_gps_coordinates()
+                latitude, longitude = 18.373358,-67.193583
+
+                print(f"Gunshot detected: {predicted_caliber} with {confidence:.2f}% confidence!", flush=True)
+                # Send to database
+                payload = {
+                    "event_time": event_time,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "caliber": predicted_caliber,
+                    "confidence": confidence
+                }
+                print(f"Sending data to database: {payload}", flush=True)
+                send_to_remote_database(event_time, latitude, longitude, predicted_caliber, confidence)
+
+                # Send message to TAK server
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                print(f"Sending TAK server message for gunshot detection.", flush=True)
+                loop.run_until_complete(send_message(latitude, longitude, predicted_caliber, confidence))
+                loop.close()
+
+                # Save event to CSV
+                csv_writer.writerow([event_time, latitude, longitude, predicted_caliber, f"{confidence:.2f}%"])
+                csv_writer.flush()
+
+
+
+
+            else:
+                print(f"Prediction below threshold: {confidence:.2f}%", flush=True)
+    except Exception:
+        logging.exception("An error occurred in process_audio_chunk.")
+
+
+def audio_callback(indata, frames, time, status):
+    if status:
+        print(f"Status: {status}", file=sys.stderr, flush=True)
+    print(f"Captured audio chunk shape: {indata.shape}, dtype: {indata.dtype}", flush=True)
+    if indata.ndim > 1:
+        indata = np.mean(indata, axis=1)  # Convert stereo to mono
+    audio_buffer.put(indata.copy())
+
+def process_audio_stream(model, classes, le, csv_writer, args):
+    while True:
+        if not audio_buffer.empty():
+            audio_chunk = audio_buffer.get()
+            process_audio_chunk(audio_chunk, model, classes, le, csv_writer, args)
 
 def live_prediction(args):
     model = load_model(args.model_fn, custom_objects={
@@ -151,62 +226,14 @@ def live_prediction(args):
     if csv_file.tell() == 0:
         csv_writer.writerow(['Time', 'Latitude', 'Longitude', 'Caliber', 'Confidence'])
 
-    def process_audio():
-        while True:
-            if not audio_buffer.empty():
-                try:
-                    audio_chunk = audio_buffer.get()
-                    audio_chunk = audio_chunk.flatten()
-                    X_batch = preprocess_audio(audio_chunk, args.sr, args.dt, args.threshold)
-
-                    if X_batch.size > 0:
-                        y_pred = model.predict(X_batch)
-                        y_mean = np.mean(y_pred, axis=0)
-                        y_pred_class_index = np.argmax(y_mean)
-                        confidence = y_mean[y_pred_class_index] * 100
-                        predicted_caliber = classes[y_pred_class_index]
-
-                        print(f"Predicted Caliber: {predicted_caliber}, Confidence: {confidence:.2f}%", flush=True)
-
-                        if confidence >= args.confidence_threshold:
-                            event_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                            latitude, longitude = get_gps_coordinates()
-
-                            csv_writer.writerow([event_time, latitude, longitude, predicted_caliber, f"{confidence:.2f}%"])
-                            csv_file.flush()
-
-                            print("Debug: Calling send_to_remote_database()", flush=True)
-                            send_to_remote_database(event_time, latitude, longitude, predicted_caliber, confidence)
-
-                            loop = asyncio.new_event_loop()
-                            asyncio.set_event_loop(loop)
-                            loop.run_until_complete(send_message(latitude, longitude, predicted_caliber, confidence))
-                            loop.close()
-
-                            if latitude is not None and longitude is not None:
-                                print(
-                                    f"Gunshot detected ({predicted_caliber}) at {event_time} with {confidence:.2f}% confidence.",
-                                    flush=True)
-                                print(f"Location: Latitude = {latitude}, Longitude = {longitude}", flush=True)
-                            else:
-                                print(
-                                    f"Gunshot detected ({predicted_caliber}) at {event_time} with {confidence:.2f}% confidence.",
-                                    flush=True)
-                                print("Location: GPS coordinates not available.", flush=True)
-                except Exception as e:
-                    logging.exception("An error occurred in process_audio.")
-
-    processing_thread = threading.Thread(target=process_audio, daemon=True)
+    processing_thread = threading.Thread(target=process_audio_stream, args=(model, classes, le, csv_writer, args), daemon=True)
     processing_thread.start()
 
     if args.test_file:
         from scipy.io import wavfile
         import time
 
-        print(f"Testing with audio file: {args.test_file}", flush=True)
         sr, audio_data = wavfile.read(args.test_file)
-        if sr != args.sr:
-            print(f"Sample rate mismatch: {sr} Hz vs expected {args.sr} Hz.", flush=True)
         audio_data = audio_data.astype(np.float32)
 
         step = int(args.sr * args.dt)
@@ -216,7 +243,7 @@ def live_prediction(args):
                 padding = np.zeros(step - len(chunk), dtype=np.float32)
                 chunk = np.concatenate((chunk, padding))
             chunk = chunk.reshape(-1, 1)
-            audio_buffer.put(chunk)
+            process_audio_chunk(chunk, model, classes, le, csv_writer, args)
             time.sleep(args.dt)
         time.sleep(2)
     else:
@@ -236,7 +263,7 @@ if __name__ == '__main__':
     parser.add_argument('--src_dir', type=str, default='wavfiles', help='Directory containing class labels.')
     parser.add_argument('--dt', type=float, default=1.0, help='Time in seconds to sample audio.')
     parser.add_argument('--sr', type=int, default=16000, help='Sample rate of clean audio.')
-    parser.add_argument('--threshold', type=int, default=20, help='Threshold magnitude for np.int16 dtype.')
+    parser.add_argument('--threshold', type=int, default=5, help='Threshold magnitude for np.int16 dtype.')
     parser.add_argument('--confidence_threshold', type=float, default=50.0, help='Confidence threshold (%) to consider a detection.')
     parser.add_argument('--csv_filename', type=str, default='gunshot_events.csv', help='CSV filename to save detected events.')
     parser.add_argument('--device', type=int, default=None, help='Input device index for microphone selection.')
@@ -244,7 +271,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.test_file is None and args.device is None:
-        print("Available audio input devices:", flush=True)
         devices = sd.query_devices()
         input_devices = [i for i, dev in enumerate(devices) if dev['max_input_channels'] > 0]
         for i in input_devices:
