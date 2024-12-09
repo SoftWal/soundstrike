@@ -101,12 +101,8 @@ The **SoundStrike Plugin** is a custom add-on for the ATAK platform that enables
 1. **Clone the Repository**:
    - Clone the plugin repository using:
      ```bash
-     git clone https://github.com/YourUsername/SoundStrikePlugin.git
-     ```
-   - Navigate to the plugin directory:
-     ```bash
-     cd SoundStrikePlugin
-     ```
+     [https://github.com/YourUsernamesoundstrike.git]
+    
 
 2. **Build the Plugin**:
    - Open the project in Android Studio.
