@@ -1,0 +1,98 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.atakmap.android.soundstrike.plugin.app-mergeCivDebugResources-4:/values/values.xml",
+            "map": [
+                {
+                    "source": "/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/res/values/dimen.xml",
+                    "from": {
+                        "startLines": "17,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "947,196",
+                        "endColumns": "41,39",
+                        "endOffsets": "984,231"
+                    },
+                    "to": {
+                        "startLines": "5,6",
+                        "startColumns": "4,4",
+                        "startOffsets": "190,232",
+                        "endColumns": "41,39",
+                        "endOffsets": "227,267"
+                    }
+                },
+                {
+                    "source": "/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "70,3,66,86,78,15,47,56,92,105,112,99",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3351,49,3212,4128,3753,778,2354,2678,4390,4920,5127,4668",
+                        "endLines": "76,12,68,88,84,40,53,63,96,107,122,103",
+                        "endColumns": "12,12,12,12,12,12,12,12,12,12,12,12",
+                        "endOffsets": "3747,771,3345,4279,4121,2178,2640,3205,4661,5068,5710,4914"
+                    },
+                    "to": {
+                        "startLines": "12,19,29,32,35,42,56,59,67,72,75,86",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "655,832,1559,1697,1853,2226,2789,2872,3404,3680,3833,4421",
+                        "endLines": "18,28,31,34,41,55,58,66,71,74,85,90",
+                        "endColumns": "12,12,12,12,12,12,12,12,12,12,12,12",
+                        "endOffsets": "827,1554,1692,1848,2221,2784,2867,3399,3675,3828,4416,4667"
+                    }
+                },
+                {
+                    "source": "/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/res/values/colors.xml",
+                    "from": {
+                        "startLines": "4,5,3",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "100,146,60",
+                        "endColumns": "45,48,39",
+                        "endOffsets": "141,190,95"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,101,150",
+                        "endColumns": "45,48,39",
+                        "endOffsets": "96,145,185"
+                    }
+                },
+                {
+                    "source": "/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "5,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "146,72",
+                        "endLines": "7,3",
+                        "endColumns": "9,48",
+                        "endOffsets": "397,116"
+                    },
+                    "to": {
+                        "startLines": "7,10",
+                        "startColumns": "4,4",
+                        "startOffsets": "272,528",
+                        "endLines": "9,10",
+                        "endColumns": "9,48",
+                        "endOffsets": "523,572"
+                    }
+                },
+                {
+                    "source": "/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/generated/res/resValues/civ/debug/values/gradleResValues.xml",
+                    "from": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "150",
+                        "endColumns": "77",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "11",
+                        "startColumns": "4",
+                        "startOffsets": "577",
+                        "endColumns": "77",
+                        "endOffsets": "650"
+                    }
+                }
+            ]
+        }
+    ]
+}

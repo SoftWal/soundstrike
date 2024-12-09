@@ -1,0 +1,66 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.atakmap.android.soundstrike.plugin"
+4    android:versionCode="1"
+5    android:versionName="1.0 () - [5.1.0]" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:5:5-66
+11-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:7:5-31:19
+14        android:allowBackup="false"
+14-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:9:9-36
+15        android:debuggable="true"
+16        android:description="@string/app_desc"
+16-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:12:9-47
+17        android:extractNativeLibs="true"
+17-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:13:9-41
+18        android:icon="@drawable/sus"
+18-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:10:9-37
+19        android:label="@string/app_name"
+19-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:11:9-41
+20        android:testOnly="true"
+21        android:theme="@style/AppTheme" >
+21-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:14:9-40
+22        <meta-data
+23            android:name="plugin-api"
+23-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:15:20-45
+24            android:value="com.atakmap.app@5.1.0.CIV" />
+24-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:15:46-79
+25        <meta-data
+25-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:16:9-78
+26            android:name="app_desc"
+26-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:16:20-43
+27            android:value="@string/app_desc" />
+27-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:16:44-76
+28
+29        <!--
+30            This fictitious activity entry allow for ATAK 4.6.0.2 and newer to perform 
+31            plugin discovery  android devices.  If this is removed, the plugin will 
+32            not be able to be discovered or loaded.
+33        -->
+34        <activity
+34-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:22:8-28:19
+35            android:name="com.atakmap.app.component"
+35-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:22:18-58
+36            android:exported="true" >
+36-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:23:12-35
+37            <intent-filter android:label="@string/app_name" >
+37-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:25:12-27:28
+37-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:25:27-59
+38                <action android:name="com.atakmap.app.component" />
+38-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:26:15-66
+38-->/home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/AndroidManifest.xml:26:23-63
+39            </intent-filter>
+40        </activity>
+41    </application>
+42
+43</manifest>
