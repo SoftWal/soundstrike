@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/marker_lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lat:"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/marker_lon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lon:"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/confirm_marker_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Place Marker" />
+</LinearLayout>

@@ -1,0 +1,10 @@
+com.atakmap.android.soundstrike.plugin.app-debug-0 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build-types/debug/res
+com.atakmap.android.soundstrike.plugin.app-civ-1 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/generated/res/pngs/civ/debug
+com.atakmap.android.soundstrike.plugin.app-civ-2 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/generated/res/resValues/civ/debug
+com.atakmap.android.soundstrike.plugin.app-civ-3 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/generated/res/rs/civ/debug
+com.atakmap.android.soundstrike.plugin.app-mergeCivDebugResources-4 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/intermediates/incremental/civDebug/mergeCivDebugResources/merged.dir
+com.atakmap.android.soundstrike.plugin.app-mergeCivDebugResources-5 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/intermediates/incremental/civDebug/mergeCivDebugResources/stripped.dir
+com.atakmap.android.soundstrike.plugin.app-merged_res-6 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/build/intermediates/merged_res/civDebug
+com.atakmap.android.soundstrike.plugin.app-civ-7 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/civ/res
+com.atakmap.android.soundstrike.plugin.app-civDebug-8 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/civDebug/res
+com.atakmap.android.soundstrike.plugin.app-main-9 /home/wgcengineering/Documents/University/ATAK-Project/ATAK-CIV-5.1.0.19-SDK/samples/plugintemplate/app/src/main/res
