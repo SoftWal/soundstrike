@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import sounddevice as sd
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model # type: ignore
 from kapre.time_frequency import STFT, Magnitude, ApplyFilterbank, MagnitudeToDecibel
 from sklearn.preprocessing import LabelEncoder
 from clean import downsample_mono, envelope
@@ -298,15 +298,15 @@ def live_prediction(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Live Audio Classification with Gunshot Detection')
-    parser.add_argument('--model_fn', type=str, default='models/conv1d.keras',
+    parser.add_argument('--model_fn', type=str, default='audio_classifier/models/conv2d.keras',
                         help='Model file to use for predictions.')
-    parser.add_argument('--src_dir', type=str, default='wavfiles',
+    parser.add_argument('--src_dir', type=str, default='audio_classifier/wavfiles',
                         help='Directory containing class labels.')
     parser.add_argument('--dt', type=float, default=1.0,
                         help='Time in seconds to sample audio.')
     parser.add_argument('--sr', type=int, default=16000,
                         help='Sample rate of clean audio.')
-    parser.add_argument('--threshold', type=int, default=20,
+    parser.add_argument('--threshold', type=int, default=80,
                         help='Threshold magnitude for np.int16 dtype.')
     parser.add_argument('--confidence_threshold', type=float, default=50.0,
                         help='Confidence threshold (%) to consider a detection.')

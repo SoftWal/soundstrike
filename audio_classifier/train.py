@@ -1,6 +1,6 @@
 import tensorflow as tf
-from tensorflow.keras.callbacks import CSVLogger, ModelCheckpoint
-from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.callbacks import CSVLogger, ModelCheckpoint # type: ignore
+from tensorflow.keras.utils import to_categorical # type: ignore
 import os
 from scipy.io import wavfile
 import pandas as pd
@@ -69,7 +69,7 @@ def train(args):
               'conv2d':Conv2D(**params),
               'lstm':  LSTM(**params)}
     assert model_type in models.keys(), '{} not an available model'.format(model_type)
-    csv_path = os.path.join('logs', '{}_history.csv'.format(model_type))
+    csv_path = os.path.join('audio_classifier/logs', '{}_history.csv'.format(model_type))
 
     wav_paths = glob('{}/**'.format(src_root), recursive=True)
     wav_paths = [x.replace(os.sep, '/') for x in wav_paths if '.wav' in x]
@@ -94,7 +94,7 @@ def train(args):
     vg = DataGenerator(wav_val, label_val, sr, dt,
                        params['N_CLASSES'], batch_size=batch_size)
     model = models[model_type]
-    cp = ModelCheckpoint('models/{}.keras'.format(model_type), monitor='val_loss',
+    cp = ModelCheckpoint('audio_classifier/models/{}.keras'.format(model_type), monitor='val_loss',
                          save_best_only=True, save_weights_only=False,
                          mode='auto', save_freq='epoch', verbose=1)
     csv_logger = CSVLogger(csv_path, append=False)
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Audio Classification Training')
     parser.add_argument('--model_type', type=str, default='conv1d',
                         help='model to run. i.e. conv1d, conv2d, lstm')
-    parser.add_argument('--src_root', type=str, default='clean',
+    parser.add_argument('--src_root', type=str, default='audio_classifier/clean',
                         help='directory of audio files in total duration')
     parser.add_argument('--batch_size', type=int, default=32,
                         help='batch size')
