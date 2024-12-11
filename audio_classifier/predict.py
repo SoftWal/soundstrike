@@ -1,4 +1,4 @@
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model # type: ignore
 from clean import downsample_mono, envelope
 from kapre.time_frequency import STFT, Magnitude, ApplyFilterbank, MagnitudeToDecibel
 from sklearn.preprocessing import LabelEncoder
@@ -51,7 +51,7 @@ def make_prediction(args):
         
         results.append(y_mean)
 
-    np.save(os.path.join('logs', args.pred_fn), np.array(results))
+    np.save(os.path.join('audio_classifier/logs', args.pred_fn), np.array(results))
     
 def predict_folder(model, folder_path, args, classes):
     """
@@ -112,13 +112,13 @@ def predict_folder(model, folder_path, args, classes):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_fn', type=str, default='models/conv2d.keras',
+    parser.add_argument('--model_fn', type=str, default='audio_classifier/models/conv2d.keras',
                         help='model file to make predictions')
     parser.add_argument('--pred_fn', type=str, default='y_pred',
                         help='fn to write predictions in logs dir')
-    parser.add_argument('--src_dir', type=str, default='wavfiles',
+    parser.add_argument('--src_dir', type=str, default='audio_classifier/wavfiles',
                         help='directory containing wavfiles to predict')
-    parser.add_argument('--folder_path', type=str, default='real_prediction',
+    parser.add_argument('--folder_path', type=str, default=None,
                         help='Path to a folder containing multiple WAV files to predict.')
     parser.add_argument('--dt', type=float, default=1.0,
                         help='time in seconds to sample audio')
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                         help='threshold magnitude for np.int16 dtype')
     args, _ = parser.parse_known_args()
 
-    #make_prediction(args)
+    #'audio_classifier/real_prediction'
     
     # Load model and classes
     model = load_model(args.model_fn,

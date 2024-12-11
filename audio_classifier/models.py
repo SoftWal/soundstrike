@@ -1,31 +1,15 @@
-from tensorflow.keras import layers
-from tensorflow.keras.layers import TimeDistributed, LayerNormalization
-from tensorflow.keras.models import Model
-from tensorflow.keras.regularizers import l2
-from tensorflow.keras.layers import Input
+from tensorflow.keras import layers # type: ignore # type: ignore
+from tensorflow.keras.layers import TimeDistributed, LayerNormalization # type: ignore
+from tensorflow.keras.models import Model # type: ignore # type: ignore
+from tensorflow.keras.regularizers import l2 # type: ignore # type: ignore
+from tensorflow.keras.layers import Input # type: ignore
 import kapre
 from kapre.composed import get_melspectrogram_layer
 import tensorflow as tf
 import os
-# import keras
-# from keras import layers
-# from layers import LayerNormalization
-
 
 
 def Conv1D(N_CLASSES=9, SR=16000, DT=1.0):
-    # input_shape = (int(SR*DT), 1)
-    # i = kapre.composed.get_melspectrogram_layer(input_shape=input_shape,
-    #                              n_mels=128,
-    #                              pad_end=True,
-    #                              n_fft=512,
-    #                              win_length=400,
-    #                              hop_length=160,
-    #                              sample_rate=SR,
-    #                              return_decibel=True,
-    #                              input_data_format='channels_last',
-    #                              output_data_format='channels_last')
-    # x = LayerNormalization(axis=2, name='batch_norm')(i.output)
     input_shape = (int(SR * DT), 1)
     input_tensor = Input(shape=input_shape, name='audio_input')
     
@@ -39,7 +23,6 @@ def Conv1D(N_CLASSES=9, SR=16000, DT=1.0):
                                              return_decibel=True,
                                              input_data_format='channels_last',
                                              output_data_format='channels_last')
-    
     melspec_output = melspec_layer(input_tensor)
     x = LayerNormalization(axis=2, name='batch_norm')(melspec_output)
     x = TimeDistributed(layers.Conv1D(8, kernel_size=(4), activation='tanh'), name='td_conv_1d_tanh')(x)
@@ -56,7 +39,6 @@ def Conv1D(N_CLASSES=9, SR=16000, DT=1.0):
     x = layers.Dense(64, activation='relu', activity_regularizer=l2(0.001), name='dense')(x)
     o = layers.Dense(N_CLASSES, activation='softmax', name='softmax')(x)
     model = Model(inputs=input_tensor, outputs=o, name='1d_convolution')
-    #model = Model(inputs=i.input, outputs=o, name='1d_convolution')
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
@@ -64,18 +46,6 @@ def Conv1D(N_CLASSES=9, SR=16000, DT=1.0):
 
 
 def Conv2D(N_CLASSES=9, SR=16000, DT=1.0):
-    # input_shape = (int(SR*DT), 1)
-    # i = get_melspectrogram_layer(input_shape=input_shape,
-    #                              n_mels=128,
-    #                              pad_end=True,
-    #                              n_fft=512,
-    #                              win_length=400,
-    #                              hop_length=160,
-    #                              sample_rate=SR,
-    #                              return_decibel=True,
-    #                              input_data_format='channels_last',
-    #                              output_data_format='channels_last')
-    # x = LayerNormalization(axis=2, name='batch_norm')(i.output)
     input_tensor = Input(shape=(int(SR * DT), 1), name='audio_input')
     melspec_layer = get_melspectrogram_layer(input_shape=(int(SR * DT), 1),
                                             n_mels=128,
@@ -103,7 +73,6 @@ def Conv2D(N_CLASSES=9, SR=16000, DT=1.0):
     x = layers.Dense(64, activation='relu', activity_regularizer=l2(0.001), name='dense')(x)
     o = layers.Dense(N_CLASSES, activation='softmax', name='softmax')(x)
     model = Model(inputs=input_tensor, outputs=o, name='2d_convolution')
-    #model = Model(inputs=i.input, outputs=o, name='2d_convolution')
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
@@ -111,19 +80,6 @@ def Conv2D(N_CLASSES=9, SR=16000, DT=1.0):
 
 
 def LSTM(N_CLASSES=9, SR=16000, DT=1.0):
-    # input_shape = (int(SR*DT), 1)
-    # i = get_melspectrogram_layer(input_shape=input_shape,
-    #                                  n_mels=128,
-    #                                  pad_end=True,
-    #                                  n_fft=512,
-    #                                  win_length=400,
-    #                                  hop_length=160,
-    #                                  sample_rate=SR,
-    #                                  return_decibel=True,
-    #                                  input_data_format='channels_last',
-    #                                  output_data_format='channels_last',
-    #                                  name='2d_convolution')
-    # x = LayerNormalization(axis=2, name='batch_norm')(i.output)
     input_tensor = Input(shape=(int(SR * DT), 1), name='audio_input')
     melspec_layer = get_melspectrogram_layer(input_shape=(int(SR * DT), 1),
                                             n_mels=128,
@@ -154,7 +110,6 @@ def LSTM(N_CLASSES=9, SR=16000, DT=1.0):
                          name='dense_3_relu')(x)
     o = layers.Dense(N_CLASSES, activation='softmax', name='softmax')(x)
     model = Model(inputs=input_tensor, outputs=o, name='long_short_term_memory')
-    #model = Model(inputs=i.input, outputs=o, name='long_short_term_memory')
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
