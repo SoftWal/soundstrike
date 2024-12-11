@@ -16,7 +16,7 @@ import ssl
 import logging
 import sqlite3
 from queue import Queue
-
+import requests
 # For GPS data
 try:
     import geocoder
@@ -26,12 +26,34 @@ except ImportError:
 # Buffer for audio data
 audio_buffer = queue.Queue()
 
-# Database queue for inserts (event_time, latitude, longitude, caliber, confidence)
-db_queue = Queue()
+def send_to_remote_database(event_time, latitude, longitude, caliber, confidence):
+    print("Debug: Entering send_to_remote_database()", flush=True)
+
+    latitude = float(latitude) if latitude is not None else None
+    longitude = float(longitude) if longitude is not None else None
+    confidence = float(confidence)
+
+    url = "http://192.168.0.16:5000/insert_event"
+    payload = {
+        "event_time": event_time,
+        "latitude": latitude,
+        "longitude": longitude,
+        "caliber": caliber,
+        "confidence": confidence
+    }
+
+    try:
+        response = requests.post(url, json=payload, timeout=20)
+        if response.status_code == 200:
+            print("Successfully wrote to remote database via API.", flush=True)
+        else:
+            print(f"Failed to write to remote database. Status code: {response.status_code}", flush=True)
+    except requests.RequestException as e:
+        print(f"Error connecting to remote database API: {e}", flush=True)
 
 # Asynchronous function to send message to TAK Server
 async def send_message(latitude, longitude, caliber, confidence):
-    tak_server = "192.168.0.32"
+    tak_server = "192.168.0.16"
     tak_port = 8089  # TLS-encrypted TCP port
     confidence = float(confidence)
     # Construct message with dynamic coordinates and caliber
@@ -194,9 +216,7 @@ def live_prediction(args):
     if csv_file.tell() == 0:
         csv_writer.writerow(['Time', 'Latitude', 'Longitude', 'Caliber', 'Confidence'])
 
-    # Start the database writer thread
-    db_thread = threading.Thread(target=db_writer, args=(db_queue,), daemon=True)
-    db_thread.start()
+
 
     def process_audio():
         while True:
@@ -232,7 +252,7 @@ def live_prediction(args):
                             csv_file.flush()  # Ensure data is written to file
 
                             # Put the event into the db_queue for the db_writer thread to insert
-                            db_queue.put((event_time, latitude, longitude, predicted_caliber, confidence))
+                            send_to_remote_database(event_time, latitude, longitude, predicted_caliber, confidence)
 
                             # Sending message to TAK Server with caliber
                             loop = asyncio.new_event_loop()

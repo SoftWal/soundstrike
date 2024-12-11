@@ -32,7 +32,7 @@ def bandpass_filter(data, lowcut, highcut, fs, order=5):
     return lfilter(b, a, data)
 
 async def send_message(latitude, longitude, caliber, confidence):
-    tak_server = "172.20.10.6"
+    tak_server = "192.168.0.16"
     tak_port = 8089
     confidence = float(confidence)
     message = f"""<?xml version='1.0' standalone='yes'?>
@@ -126,7 +126,7 @@ def send_to_remote_database(event_time, latitude, longitude, caliber, confidence
     longitude = float(longitude) if longitude is not None else None
     confidence = float(confidence)
 
-    url = "http://172.20.10.6:5000/insert_event"
+    url = "http://192.168.0.16:5000/insert_event"
     payload = {
         "event_time": event_time,
         "latitude": latitude,
