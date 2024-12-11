@@ -312,9 +312,7 @@ def live_prediction(args):
             finally:
                 # Close CSV file
                 csv_file.close()
-                # Stop the db_writer thread
-                db_queue.put(None)
-                db_thread.join()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Live Audio Classification with Gunshot Detection')
